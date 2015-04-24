@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META INFORMATION -->
+    <title>Jaguar v2.7</title>    
+    <meta charset="utf-8"/>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Jaguar LucasArts Adventure Game Engine">
+    <meta name="keywords" content="LucasArts, Monkey Island, Game Engine, Game Builder, Game Maker, Game Generator, Adventure, Point and Click">
+    <meta name="author" content="Crusader12">
+    <meta name="copyright" content="Crusader12">   
+	
+	<!-- SETUP MOBILE VIEWPORT & DISABLE TAP HIGHLIGHT COLOR ON WINDOWS MOBILE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    
+    <!-- JAGUAR CSS -->
+    <link rel="stylesheet"  href="Jaguar/css/jquery-Jaguar-2.7.css" type="text/css" media="all" />
+
+	<!-- DEMO GAME CSS -->
+    <link rel="stylesheet" type="text/css" href="Jaguar/css/game.css"/>    
+
+	<!-- LOAD JQUERY -->
+	<script src="Jaguar/js/jquery-2.1.3.min.js"></script>
+
+	<!-- LOAD JAGUAR MODULES -->
+	<script src="Jaguar/js/jquery-jaguar-2.7.js"></script>
+	<script src="Jaguar/js/debug.js"></script>
+	<script src="Jaguar/js/physics.js"></script>
+	<script src="Jaguar/js/scene.js"></script>
+	<script src="Jaguar/js/environment.js"></script>    
+	<script src="Jaguar/js/characters.js"></script>
+	<script src="Jaguar/js/items.js"></script>
+	<script src="Jaguar/js/actions.js"></script>
+	<script src="Jaguar/js/secondary_actions.js"></script>
+	<script src="Jaguar/js/dialogue.js"></script>
+	<script src="Jaguar/js/parser.js"></script>
+	<script src="Jaguar/js/cutscenes.js"></script>
+	<script src="Jaguar/js/save_load.js"></script>
+	<script src="Jaguar/js/audio.js"></script>
+    
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		$('#myAdventure').Jaguar({
+			"skin":"monkey_island",
+			"title":"Jaguar Monkey Island Demo"
+		}); 
+	});
+</script>
+</head><body>
+
+
+
+
+<!-- **********************************************************************************************************
+***************************************************************************************************************
+// START OF GAME - MUST USE A WARPPER TO POSITION AND STYLE GAME
+***************************************************************************************************************
+*********************************************************************************************************** -->
+<!-- MUST USE A WRAPPER TO POSITION AND STYLE GAME -->
+<div id="wrapper">
+	<div id="myAdventure">
+    
+		<!-- ************************************************************************* -->
+		<!-- INITIAL TEASER TEXT -->
+		<!-- ************************************************************************* -->
+        <div id="JAG_Teaser">
+            <img src="Jaguar/chars/guybrush_open_right.gif">
+	    	<h1>Turn yer speakers up and <br/> click to begin the Adventure!</h1>
+		</div>            
+
+		<!-- ************************************************************************* -->
+		<!-- MAIN CHAPTER - SPRITE IMAGES LOADED HERE WILL BE INHERITED IN ALL SCENES -->
+		<!-- ************************************************************************* -->        
+    	<ul data-chapter='{
+           	"image":"guybrush_still_right",
+			"talk_image":"guybrush_talking_right",                     
+            "pick_up_up":"guybrush_pick_up_up",                 
+            "give_image":"guybrush_open_left",
+			"open_image":"guybrush_open_left", 				            
+            "right":"guybrush_right,guybrush_still_right", 	
+            "left":"guybrush_left,guybrush_still_left",
+            "down":"guybrush_down,guybrush_still_down",    	
+            "up":"guybrush_up,guybrush_still_up",
+            "talk_right":"guybrush_talking_right", 			
+            "talk_left":"guybrush_talking_left", 
+            "talk_down":"guybrush_talking_left",        	
+            "talk_up":"guybrush_talking_right",
+            "pick_up":"guybrush_pick_up_down",          	
+            "pick_up_left":"guybrush_pick_up_left",
+            "pick_up_down":"guybrush_pick_up_down",     	
+            "pick_up_right":"guybrush_pick_up_right",
+            "give_left":"guybrush_open_left", 				
+            "give_right":"guybrush_open_right",
+            "open_left":"guybrush_open_left",  		        
+            "open_right":"guybrush_open_right",            
+			"use_image":"guybrush_open_left",
+            "use_left":"guybrush_open_left",
+            "use_right":"guybrush_open_right",
+            "use_down":"guybrush_open_right",
+            "use_up":"guybrush_open_left",
+            "text_color":"#00fcff"
+		}'>
+
+
+   			<!-- ************************************************************************* -->
+    		<!-- OPENING SEQUENCES -->
+   			<!-- ************************************************************************* -->
+            <li id="jaguar" data-scene='{
+            	"cutscene":true, "music":"jaguar", "loop_music":false,  
+                "display_time":"2600", "speed":"700,500", 
+                "background":"opener", "skip_to":"titlescreen", 
+	            "subtitle":"Jaguar presents","subtitle_pos":"44","subtitle_size":"20","subtitle_speed":"800,1700","subtitle_color":"#FFFFFF"}'></li>
+                
+            <li id="production" data-scene='{
+            	"cutscene":true, "music":"intro", 
+                "display_time":"3100","speed":"1500,1500", "background":"blank", "skip_to":"titlescreen", "skip_text":"false,press ESC to skip",
+                "subtitle":"a Crusader12 production","subtitle_speed":"500,2600","subtitle_color":"#FFFFFF","subtitle_pos":"85", "subtitle_size":16}'></li>   
+                
+            <li id="title_1" data-scene='{
+            	"cutscene":true, "music":"intro", 
+                "display_time":"3300","speed":"1000,1000", "background":"title_1", "skip_to":"titlescreen", "skip_text":"false,press ESC to skip",
+				"subtitle":"Hidden deep in <br/>thousands of CodeCanyon files...", "subtitle_speed":"700,2500", "subtitle_size":"30","subtitle_color":"#FFFFFF","subtitle_pos":"44"}'></li>  
+                 
+            <li id="title_2" data-scene='{
+            	"cutscene":true, "music":"intro", 
+                "display_time":"3200", "speed":"1000,1000", "background":"title_2", "skip_to":"titlescreen", "skip_text":"false,press ESC to skip",
+				"subtitle":"Jaguar is waiting...","subtitle_pos":"80","subtitle_size":"30","subtitle_speed":"700,2500","subtitle_color":"#FFFFFF"}'></li>  
+                 
+            <li id="title_3" data-scene='{
+            	"cutscene":true, "music":"intro", 
+                "display_time":"3100","speed":"1000,1000", "background":"title_3", "skip_to":"titlescreen", "skip_text":"false,press ESC to skip",
+				"subtitle":"to bring back classic adventures...","subtitle_size":"30","subtitle_pos":"80","subtitle_speed":"700,2500","subtitle_color":"#FFFFFF"}'></li>
+                
+            <li id="title_4" data-scene='{
+                "music":"intro", 
+            	"cutscene":true, "display_time":"3000","speed":"1000,1000", "background":"title_4", "skip_to":"titlescreen", "skip_text":"false,press ESC to skip",
+				"subtitle":"and unleash new ones","subtitle_pos":"80","subtitle_size":"30","subtitle_speed":"700,2500","subtitle_color":"#FFFFFF"}'></li> 
+                                
+            <li id="titlescreen" data-scene='{
+                "music":"intro", 
+            	"cutscene":true, "allow_click":true, "speed":"220,250", "background":"title",
+ 	            "subtitle":"click to begin","subtitle_pos":"85","subtitle_speed":"500,0","subtitle_color":"#FFFFFF"}'></li>
+                
+            <li id="melee" data-scene='{
+                "music":"intro2", 
+            	"cutscene":true, "display_time":"11500","speed":"1500,2500","background":"melee", 
+                "subtitle_size":22,"subtitle":"This demo is built using only 3 HTML tags.<br>It is roughly 700 lines of HTML and 40 lines of CSS. || Graphics and Sprites from Monkey Island 2 <br/> are for demonstration purposes only.",
+                "subtitle_speed":"1000,5000","subtitle_color":"#ffff66","subtitle_pos":"36"}'></li> 
+
+
+            <!-- ************************************************************************* -->
+    		<!-- CROSSROADS
+   			<!-- ************************************************************************* -->
+	    	<li id="scene1" data-scene='{
+            	"background":"1","foreground":"1_foreground", "horizon":"40,120",
+                "subtitle":"jungle crossroads", "subtitle_speed":"700,3500", "subtitle_color":"#ffff00", "subtitle_pos":"55",
+                "music":"intro2", "music_volume":0.7, "music_vol_speed":500, 
+                "ambient":"ambient_jungle", "ambient_volume":0.05, "ambient_vol_speed":0}'>
+            	<!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{
+                	"scale":"0.45,0.85", "pos":"20,45", "speed":6500,
+                	"entrance":[
+                        ["inv_add:telescope"],
+                        ["inv_add:hanky"],
+                        ["inv_add:knife"],
+                        ["walk_to:60,65,500"],
+                    	["say_after:Welcome to the Jaguar Demo! || Click anywhere to walk.<br>Double-click an Exit to go there immediately. || The Verbs Panel at the bottom<br>allows you to interact with everything. || Have fun, and feel free to talk to the locals!<br>They have more details about Jaguar features."]]}'></div>
+                <!-- ENVELOPE -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", "pos":"45,63", "text":"envelope","image":"envelope", "scale":"0.5", 
+                    "pick_up":[["say:I should open it."]],
+                    "look_at_text":"I should probably read it...<br/>like the manual.",
+                    "inv_look_at_text":"I got it from the crossroads...",
+                    "open_text":"I need to pick up the envelope before I can open it.",
+                    "proximity":50, "highlight_verb":"look_at",
+                    "inv_open":[
+                    	["say:&ldquo;Jaguar now includes a Skinning System<br> and comes with skins for Monkey Island and<br>Indiana Jones and the Fate of Atlantis.&rdquo;||&ldquo;More skins are coming soon.&rdquo;"],
+                        ["play_sound:pageflip"],
+                        ["inv_remove:envelope"]]}'></div>
+                <!-- SCOPE -->
+                <div class="JAG_Item" data-item='{"text":"telescope","image":"scope","hidden":true,"pos":"0,0", "inv_look_at_text":"This little guy has followed<br>me through some adventures."}'></div>
+                <!-- HANKY -->
+                <div class="JAG_Item" data-item='{"text":"hanky","image":"hanky","hidden":true,"pos":"0,0","inv_open_text":"I would rather not.","inv_look_at_text":"It&apos;s filthy ...<br>but it&apos;s mine."}'></div>
+                <!-- KNIFE -->
+                <div class="JAG_Item" data-item='{"text":"knife","image":"knife","hidden":true,"pos":"0,0", "inv_look_at_text":"It looks pretty gnarly,<br>but will get the job done."}'></div>
+                <!-- LAYER OBJECTS (PLANTS) FOR DEPTH -->
+                <div class="JAG_Item s1_bush1" data-item='{"image":"scene1_bush1", "pos":"67.7,61.25",  "type":"layer", "text":false}'></div>
+                <div class="JAG_Item s1_bush2" data-item='{"image":"scene1_bush2", "pos":"0,0",    "type":"layer", "text":false}'></div>
+                <div class="JAG_Item s1_bush3" data-item='{"image":"scene1_bush3", "pos":"63.6,8.85", "type":"layer", "text":false}'></div>
+                <!-- EXITS -->
+                <div class="JAG_Item s1_exit1" data-item='{"type":"exit", "pos":"0,80",  "goto":"scene2", "text":"Walk to Clearing", "next_image":"guybrush_still_down"}'></div>
+                <div class="JAG_Item s1_exit2" data-item='{"type":"exit", "pos":"75,12", "goto":"scene3", "text":"Walk to Lookout", "next_image":"guybrush_still_up"}'></div>
+                <div class="JAG_Item s1_exit3" data-item='{"type":"exit", "pos":"80,85", "goto":"scene4", "text":"Follow Jungle Path", "next_image":"guybrush_still_right"}'></div>
+                <div class="JAG_Item s1_exit4" data-item='{"type":"exit", "pos":"0,30",  "goto":"scene8", "text":"Walk to Town", "next_image":"guybrush_still_left", "next_pan":100, "next_pos":"150,94"}'></div>
+	        </li>
+            
+            
+            
+            
+            <!-- ************************************************************************* -->
+    		<!-- CLEARING WITH PILE OF DIRT
+   			<!-- ************************************************************************* -->            
+	    	<li id="scene2" data-scene='{
+            	"background":"2", "foreground":"2_foreground", "horizon":"-10,120",
+                "music":"intro2", "music_volume":1, "music_vol_speed":500, 
+                "ambient":"ambient_jungle", "ambient_volume":0.1, "ambient_vol_speed":250}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{
+                	"scale":"0.45,0.85", "pos":"70,45", "speed":8000, "direction":"down",
+                    "use_image":"guybrush_pick_up_down","use_left":"guybrush_pick_up_left",
+                    "use_right":"guybrush_pick_up_right","use_down":"guybrush_pick_up_down","use_up":"guybrush_pick_up_up"}'></div> 
+ 				<!-- PILE OF DIRT -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", "pos":"40,38", "text":"pile of dirt", "proximity":50,
+        	        "image":"dirt", "scale":"0.65", 
+                    "look_at_text":"Something tells me I should dig here.",
+                    "pick_up":false, "pick_up_text":"I can&apos;t just carry dirt around."}'></div>                   
+                <!-- BURIED TREASURE -->
+                <div class="JAG_Item" data-item='{
+                	"image":"coins", "pos":"0,0", "hidden":true,"inv_look_at_text":"Money. Shiny money.", "text":"coins"}'></div>        
+                <!-- EXIT -->
+               	<div class="JAG_Item s2_exit1" data-item='{"type":"exit", "pos":"80,0", "goto":"scene1", "text":"Back to the Crossroads", "next_image":"guybrush_still_right", "next_pos":"12,90"}'></div>
+            </li>
+       
+            
+			<!-- ************************************************************************* -->
+    		<!-- OUTLOOK WITH HOUSE
+   			<!-- ************************************************************************* -->                     
+	    	<li id="scene3" data-scene='{
+            	"background":"3", "foreground":"3_foreground", "horizon":"20,145",
+                "music":"outside", "music_volume":1,
+                "fog":true, "fog_image":116, "fog_density":250, "fog_speed":1.75, "fog_opacity":0.8,
+                "ambient":"ambient_wind", "ambient_volume":0.5, "ambient_vol_speed":500}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{"scale":"0.4,0.8", "pos":"65,98", "speed":7000}'></div> 
+ 				<!-- SHOVEL -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", "pos":"20,70", "text":"shovel","image":"shovel", "scale":"0.65", "proximity":100, 
+                    "pick_up":[["say:Now what? || I need something to dig up."]],
+                    "look_at_text":"Standard in every adventure game.",
+                    "inv_look_at_text":"Yup, it&apos;s a shovel.",
+                    "inv_use":[
+                    	["with:pile of dirt"],
+                        ["say:I found treasure, but my shovel broke."],
+                        ["inv_remove:shovel"],
+                        ["inv_add:coins"],
+                        ["play_sound:coins"],
+                        ["hide:pile of dirt"]]}'></div> 
+				<!-- CLOSED DOOR -->
+                <div class="JAG_Item" data-item='{
+                	"type":"object", "pos":"44.6,46.5", "text":"door", "open_text":"It&apos;s locked.", "image":"door", "scale":"1",
+                    "look_at_text":"It&apos;s firmly attached to that house.",
+                    "push_text":"I can&apos;t force my way in.<br>I&apos;ll need to find a key.",
+                    "pull_text":"I can&apos;t force my way in.<br>I&apos;ll need to find a key.",
+                    "open":[
+						["show:Enter House"],
+                        ["hide:door"],
+                        ["inv_remove:key"],
+                        ["must_have:key"],
+                        ["play_sound:door_lock"]],
+					"not_ready_text":"It&apos;s locked."}'></div>
+                <!-- OPEN DOOR -->
+                <div class="JAG_Item s3_exit2" data-item='{
+                	"image":"opendoor","type":"exit", "hidden":true, "pos":"45,48", "goto":"scene7", "text":"Enter House", 
+                    "image":"opendoor","next_image":"guybrush_still_down", "exit_style":"false,true"}'></div>
+                <!-- LAYER ITEMS (ROCK AND STATUE) -->
+                <div class="JAG_Item s3_rock" data-item='{"image":"scene3_rock", "pos":"30,59", "type":"layer", "text":false, "proximity":350}'></div>
+                <div class="JAG_Item s3_statue" data-item='{"image":"scene3_statue", "pos":"70.15,25.85", "type":"layer", "text":"strange statue", "look_at_text":"It&apos;s a strange statue...", "proximity":350}'></div>
+                <!-- EXIT -->
+                <div class="JAG_Item s3_exit1" data-item='{"type":"exit", "pos":"60,95", "exit_style":"false,true", "goto":"scene1", "text":"Back to Crossroads", "next_image":"guybrush_still_left", "next_pos":"67,49"}'></div>
+            </li>
+            
+	            <!-- ************************************************************************* -->
+    			<!-- INSIDE HOUSE OVERLOOKING BEACH
+   				<!-- ************************************************************************* -->                     
+	    		<li id="scene7" data-scene='{
+            		"background":"7", "foreground":"7_foreground", "horizon":"30,120",
+	                "music":"house"}'>
+    	            <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{"scale":"0.5,0.7", "pos":"75,70", "speed":7000}'></div>
+					<!-- FISH -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"39,57", "text":"dead fish","proximity":150, "image":"fish", "scale":"0.56", 
+	                    "pick_up":[["say:Just in case I come across any trolls."]],
+    	                "look_at_text":"It&apos;s a fish.",
+        	            "inv_look_at_text":"He&apos;s cute.",
+						"give":[
+                	    	["to:dirtypirate"],
+							["inv_add:matches"]],
+	                    "give_text":[
+    	                	[["I brought your lunch. || Kid, just for that you can have<br/> this complimentary book of matches."],
+							 ["I&apos;ve always wanted my very own. || Don&apos;t light em all at once."]]]}'></div> 
+            	    <!-- EXITS -->
+                	<div class="JAG_Item s7_exit1" data-item='{"type":"exit", "exit_style":"false,true", "pos":"74,28", "goto":"scene3", "text":"Exit House", "next_image":"guybrush_still_right", "next_pos":"55,75"}'></div>
+	            </li>            
+            
+
+            <!-- ************************************************************************* -->
+    		<!-- JUNGLE
+   			<!-- ************************************************************************* -->            
+	    	<li id="scene4" data-scene='{
+            	"background":"4", "foreground":"3_foreground", "horizon":"30,120",
+                "music":"intro2", "music_volume":0.7, "music_vol_speed":1000,
+                "ambient":"ambient_jungle", "ambient_volume":0.05, "ambient_vol_speed":250}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{"scale":"0.45,0.85", "pos":"20,57", "speed":7000}'></div> 
+                <!-- REPAIRED OAR -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", "pos":"50,60", "text":"repaired oar","image":"oar", "scale":"0.65", "proximity":100, 
+                    "pick_up":[["say:You never know when you need a broken oar."]],
+                    "look_at_text":"Odd, there&apos;s an oar in the middle of the jungle.",
+                    "inv_look_at_text":"Mostly glue and tape."}'></div>
+                <!-- EXITS -->
+                <div class="JAG_Item s4_exit1" data-item='{"type":"exit", "pos":"85,60", "goto":"scene5", "text":"Walk to Beach", "next_image":"guybrush_still_right"}'></div>
+                <div class="JAG_Item s4_exit2" data-item='{"type":"exit", "pos":"5,28", "goto":"scene1", "text":"Back to Crossroads", "next_image":"guybrush_still_up", "next_pos":"80,85"}'></div>
+            </li>
+            
+            
+            <!-- ************************************************************************* -->
+    		<!-- BEACH 
+   			<!-- ************************************************************************* -->                       
+	    	<li id="scene5" data-scene='{
+				"background":"5", "foreground":"3_foreground", "horizon":"50,100",
+                "music":"beach", "music_volume":0.5, "music_vol_speed":1000,
+                "ambient":"ambient_waves", "ambient_volume":0.25, "ambient_vol_speed":500}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{"scale":"0.05,0.15", "pos":"10,75", "speed":12000}'></div> 
+                <!-- BANANA -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", "pos":"60,80", "text":"banana", "proximity":50,"image":"banana", "scale":"0.1", 
+                    "pick_up":[["say:I&apos;m not hungry, so I&apos;ll save this for later."]],
+                    "look_at_text":"I wonder where this came from?",
+                    "inv_open_text":"I don&apos;t want it to rot.",
+                    "inv_look_at_text":"Nice and ripe."}'></div>                
+				<!-- HOUSE -->
+                <div class="JAG_Item s5_house" data-item='{
+                	"image":"house","pos":"72.25,7.65", "type":"layer", "text":"house", "proximity":"1000", 
+                    "look_at_text":"I might be able to get<br/> there from the jungle."}'></div>
+                <!-- EXITS -->
+                <div class="JAG_Item s5_exit1" data-item='{"type":"exit", "pos":"0,60", "goto":"scene4", "text":"Back to Jungle", "next_image":"guybrush_still_left", "next_pos":"75,75"}'></div>
+                <div class="JAG_Item s5_exit2" data-item='{"type":"exit", "pos":"45,52", "goto":"scene6", "text":"Enter Cave", "look_at_text":"It appears as if someone carved a <br/>home into the sea rock."}'></div>
+                <div class="JAG_Item s5_exit3" data-item='{"type":"exit", "pos":"95,65", "goto":"scene15", "text":"Walk down Beach"}'></div>
+            </li> 
+            
+	            <!-- ************************************************************************* -->
+    			<!-- DUNGEON 1
+   				<!-- ************************************************************************* -->                     
+		    	<li id="scene6" data-scene='{
+					"background":"6", "foreground":"3_foreground", "horizon":"5,160",
+        	        "music":"swamp", "music_volume":0.7, "music_vol_speed":1000}'>
+            	    <!-- MAIN CHARACTER -->
+    	        	<div class="JAG_Char" data-character='{"scale":"0.25,0.5", "pos":"12,38", "speed":9000,"entrance":[["walk_to:5,75,200"]],"repeat_entrance":true}'></div> 
+	                <!-- KEY -->
+    	            <div class="JAG_Item" data-item='{
+						"type":"object", "pos":"15,75", "text":"key","proximity":100,"image":"key", "scale":"0.35", 
+            	        "pick_up":[["say:I wonder what this opens."]],
+                	    "look_at_text":"Why would there be a key down here?",
+                    	"inv_look_at_text":"It has a skull on the end.",
+	                    "inv_use":[
+    	                	["with:door"],
+							["show:Enter House"],
+            	            ["hide:door"],
+                	        ["inv_remove:key"],
+                    	    ["play_sound:door_lock"]]}'></div>   
+	                <!-- EXITS -->
+    	            <div class="JAG_Item s6_exit1" data-item='{"type":"exit", "pos":"10,20", "goto":"scene5", "text":"Back to Beach", "next_image":"guybrush_still_down", "next_pos":"45,75", "exit_style":"false,true"}'></div>
+        	        <div class="JAG_Item s6_exit2" data-item='{"type":"exit", "pos":"25,45", "goto":"scene11", "text":"Dungeon", "next_image":"guybrush_still_down", "exit_style":"false,true"}'></div>
+            	</li>
+	    
+                	<!-- ************************************************************************* -->
+	    			<!-- DUNGEON 2 
+		   			<!-- ************************************************************************* -->                                            
+			    	<li id="scene11" data-scene='{
+	        	    	"background":"11", "horizon":"0,100",
+    	        	    "music":"swamp", "music_volume":1, "music_vol_speed":1000}'>
+		                <!-- MAIN CHARACTER -->
+    			        <div class="JAG_Char" data-character='{"scale":"0.5,0.75", "pos":"50,95", "speed":7000}'></div>
+						<!-- DYNAMITE -->
+						<div class="JAG_Item" data-item='{
+							"type":"object", "pos":"25,85", "text":"dynamite","proximity":100, "image":"dynamite", "scale":"0.7", 
+            	    	    "pick_up":[["say:Now all I need is<br>a way to light these."]],
+                	    	"inv_look_at_text":"BOOM.",
+	                    	"inv_use":[
+		                    	["with:damaged wall"],
+    		                    ["play_sound:crumble"],
+        		                ["req_sprite:dynamitelit"],
+            		            ["hide:damaged wall"],
+                		        ["show:Beneath the Jail"],
+                    		    ["inv_remove:dynamite"],
+                        		["say:I&apos;ve blown open some kind of passageway."]]}'></div>  
+		                <!-- EXIT -->
+    		            <div class="JAG_Item s11_exit1" data-item='{"type":"exit", "pos":"30,10", "goto":"scene6", "text":"Exit", "next_image":"guybrush_still_down", "next_pos":"42,65", "next_walk_to":"42,75", "exit_style":"false,true"}'></div>
+					</li> 
+            
+            
+            <!-- ************************************************************************* -->
+    		<!-- BEACH 2
+   			<!-- ************************************************************************* -->                       
+	    	<li id="scene15" data-scene='{
+				"background":"15", "foreground":"15_foreground", "horizon":"64,115",
+                "music":"beach", "music_volume":0.5, "music_vol_speed":1000,
+                "ambient":"ambient_waves", "ambient_volume":0.25, "ambient_vol_speed":500}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{"scale":"0.3,0.75", "pos":"1,77", 
+                	"entrance":[["walk_to:25,77,200"]], "repeat_entrance":true, "speed":7000}'></div> 
+				<!-- SIGN -->
+				<div class="JAG_Item scene15_sign" data-item='{
+					"type":"layer", "pos":"42,53", "text":"wooden sign", "proximity":200, 
+                    "look_at_text":"It says:<br>&ldquo;Beware of the three-headed monkey.&rdquo;",
+                    "pick_up":false, "pick_up_text":"It&apos;s nailed down pretty tight.<br>Besides, what would I do with a sign?<br>Seriously?"}'></div>  
+				<!-- GENERATOR -->
+				<div class="JAG_Item scene15_generator" data-item='{
+					"type":"layer", "pos":"63,45", "text":"generator", "proximity":150, 
+                    "look_at_text":"There&apos;s some kind of generator here.<br>I wonder what it powers...",
+                    "pick_up":false, "pick_up_text":"Yeah... sure.",
+                    "use":false, "use_text":"The generator is already running,<br>turning it off may be a bad idea."}'></div>  
+				<!-- BARRELS -->
+				<div class="JAG_Item scene15_barrels" data-item='{
+					"type":"layer", "pos":"75,58", "text":"barrels", "proximity":150, 
+                    "look_at_text":"Someone forgot their rotting barrels.",
+                    "pick_up":false, "pick_up_text":"I don&apos;t need barrels.",
+                    "highlight_verb":"open",
+                    "open":[
+                    	["say:Well, looks like they left this perfectly<br>good dead rat behind."],
+                        ["play_sound:rat"],
+                        ["inv_add:dead rat"]
+                    ]}'></div>  
+				<!-- DEAD RAT -->
+				<div class="JAG_Item scene15_barrels" data-item='{
+					"type":"object", "pos":"0,0", "text":"dead rat", "image":"dead_rat", "hidden":true,
+                    "inv_look_at_text":"I can&apos;t believe I&apos;m carrying<br>this thing around with me.",
+                    "inv_talk_to_text":"I think it squeeked."}'></div>  
+                <!-- EXITS -->
+                <div class="JAG_Item s15_exit1" data-item='{"type":"exit", "pos":"0,59", "exit_style":"false,true", "goto":"scene5", "text":"Back up the Beach", "next_image":"guybrush_still_left", "next_pos":"95,82"}'></div>
+                <div class="JAG_Item s15_exit2" data-item='{"type":"exit", "pos":"95,55", "exit_style":"false,true", "goto":"scene16", "text":"Guardhouse", "next_image":"guybrush_still_up"}'></div>
+            </li> 
+
+            
+	            <!-- ************************************************************************* -->
+    			<!-- GUARDHOUSE
+   				<!-- ************************************************************************* -->                       
+		    	<li id="scene16" data-scene='{
+					"background":"16", "foreground":"16_foreground", "horizon":"40,115",
+        	        "music":"beach", "music_volume":0.5, "music_vol_speed":20,
+                	"ambient":"ambient_waves", "ambient_volume":0.25, "ambient_vol_speed":500}'>
+	                <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{"scale":"0.1,0.65", "pos":"30,98", "direction":"up", "speed":7000}'></div> 
+					<!-- GUARDHOUSE -->
+					<div class="JAG_Item" data-item='{"type":"layer", "pos":"38.5,39", "image":"guardhouse"}'></div>  
+			        <!-- EXITS -->
+            	    <div class="JAG_Item s16_exit1" data-item='{"type":"exit", "pos":"15,95", "exit_style":"false,true", "goto":"scene15", "text":"Back to Beach", "next_image":"guybrush_still_left", "next_pos":"180,85", "next_walk_to":"70,95", "next_pan":100}'></div>
+            	    <div class="JAG_Item s16_exit2" data-item='{"type":"exit", "pos":"67,50", "exit_style":"false,true", "goto":"scene17", "text":"to Private Estates"}'></div>
+	            </li> 
+                
+	            <!-- ************************************************************************* -->
+    			<!-- PRIVATE ESTATES
+   				<!-- ************************************************************************* -->                       
+		    	<li id="scene17" data-scene='{
+					"background":"17", "foreground":"17_foreground", "horizon":"20,115", "pan":true, "pan_pos":0,
+        	        "music":"beach", "music_volume":0.5, "music_vol_speed":1000,
+	                "subtitle":"the private estates","subtitle_speed":"700,3500","subtitle_color":"#00cc66","subtitle_pos":"55"}'>
+	                <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{"direction":"down", "scale":"0.35,0.7", "pos":"12,86", "speed":6000}'></div> 
+					<!-- CLOSED DOOR -->
+					<div class="JAG_Item" data-item='{
+                    	"type":"object", "pos":"49.5,36", "image":"closedestatedoor", "text":"estate door",
+                    	"open_text":"It&apos;s locked.", "scale":"1", "look_at_text":"The door is heavy and well-built.",
+                        "not_ready_text":"It&apos;s locked.<br>I&apos;ll need a key.", "proximity":150,
+                        "open":[
+                        	["show:Enter Estate"],
+                            ["hide:estate door"],
+                            ["inv_remove:estate key"],
+                            ["must_have:estate key"],
+                            ["play_sound:door_lock"]]}'></div>  
+                    <!-- POSTER -->
+					<div class="JAG_Item scene17_poster" data-item='{
+                    	"type":"object", "pos":"57,38", "text":"flyer", "proximity":170,
+                        "look_at_text":"It&apos;s a flyer for anyone interested<br>in buying this property. || That&apos;s odd, it was posted by Stan.<br>I wonder where he&apos;s moving.",
+                        "pick_up_text":"I&apos;ll leave it there...<br>Stan will take it down when the place sells."
+                    }'></div>
+					<!-- MONKEY HEAD -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"59.5,66", "text":"monkey head souvenir", "proximity":100, "image":"monkey_head", "scale":"0.4", 
+	                    "pick_up":[["say:I wonder if Stan realizes he left this here? || I should return it to him."]],
+    	                "look_at_text":"It reminds me of something...",
+        	            "inv_look_at_text":"How nostalgic.",
+						"give":[
+                	    	["to:stan"],
+							["inv_add:estate key"]],
+	                    "give_text":[
+    	                	[["You may have left this monkey head souvenir at your estate for sale. || Thanks, I&apos;ve been looking for this!<br>You interested in the place?<br>Here&apos;s the key, take a peek."],
+							 ["Ummm... ok. || Don&apos;t worry about bringing it back,<br>I had plenty of copies made."]]]}'></div>                     
+			        <!-- EXITS -->
+            	    <div class="JAG_Item s17_exit1" data-item='{"type":"exit", "pos":"5,63", "exit_style":"false,true", "goto":"scene16", "text":"Back to Guardhouse", "next_image":"guybrush_still_down", "next_pos":"75,60"}'></div>
+	                <!-- OPEN DOOR -->
+    	            <div class="JAG_Item s17_exit2" data-item='{
+						"type":"exit", "hidden":true, "pos":"49.5,36", "image":"open_estate_door",
+                        "goto":"scene18", "text":"Enter Estate", "exit_style":"false,true"}'></div>
+				</li> 
+                
+	            <!-- ************************************************************************* -->
+    			<!-- INSIDE PRIVATE ESTATE
+   				<!-- ************************************************************************* -->                       
+		    	<li id="scene18" data-scene='{
+					"background":"18", "foreground":"18_foreground", "horizon":"20,115",
+        	        "music":"estate", "music_volume":0.65, "music_vol_speed":1000,
+                	"ambient":"ambient_waves", "ambient_volume":0.25, "ambient_vol_speed":500}'>
+	                <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{"pos":"30,99", "entrance":[["walk_to:40,92,200"],["say_after:Woah. This place is a dump."]], "direction":"up", "scale":"0.35,0.5", "speed":7500}'></div> 
+					<!-- RED BOOK -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"59,77", "text":"red book","proximity":150, "image":"book", "scale":"0.3", 
+	                    "pick_up":[["say:I should bring this along."]],
+    	                "look_at_text":"The spine is a bit worn,<br>but otherwise in good shape.",
+        	            "inv_open":[
+            	        	["say:Something fell out."],
+                            ["show:docks"],
+                	        ["inv_add:ticket"],
+                    	   	["play_sound:pageflip"]],
+	                    "inv_look_at_text":"I&apos;ve read this one <br/> a hundred times."}'></div>  
+			        <!-- EXITS -->
+            	    <div class="JAG_Item s18_exit1" data-item='{"type":"exit", "pos":"5,95", "exit_style":"false,true", "goto":"scene17", "text":"Exit Private Estate", "next_image":"guybrush_still_down", "next_pos":"77,75"}'></div>
+				</li>                                  
+                
+                
+                
+
+            <!-- ************************************************************************* -->
+    		<!-- TOWN
+   			<!-- ************************************************************************* -->                                           
+	    	<li id="scene8" data-scene='{
+            	"background":"8", "horizon":"65,107", "pan":true, "pan_pos":90,
+                "music":"journey", "music_volume":0.6,
+                "ambient":"ambient_waves", "ambient_volume":0.3, "ambient_vol_speed":500}'>
+                <!-- MAIN CHARACTER -->
+    	        <div class="JAG_Char" data-character='{"scale":"0.25,0.65", "pos":"90,94", "speed":5000}'></div>
+                <!-- TIN CUP -->
+				<div class="JAG_Item" data-item='{
+					"type":"object", "pos":"47,66", "text":"cup","proximity":100, "image":"cup", "scale":"0.2", 
+                    "pick_up":[ ["say:Empty."] ],
+                    "look_at_text":"Someone left a cup here.",
+                    "inv_look_at_text":"The word &apos;<strong>Grog</strong>&apos; is<br/> etched into the bottom."}'></div> 
+                <!-- MAP -->
+				<div class="JAG_Item" data-item='{
+					"type":"object", "pos":"46,78", 
+                    "pick_up":[["say:Time to find some booty!"]], "text":"map", "proximity":100, "image":"map", "scale":"0.25", 
+                    "look_at_text":"It looks like a map.",
+                    "inv_look_at_text":"I need to find<br>someone that can make sense of it."}'></div>                                      
+                <!-- LAYER ITEM (CANON) -->
+				<div class="JAG_Item s8_canon" data-item='{"image":"canon","type":"layer", "pos":"10.4,73", "text":"canon", "look_at_text":"A canon.", "pick_up_text":"Maybe later.", "use_text":"It isn&apos;t loaded."}'></div>                
+                <!-- EXITS -->
+                <div class="JAG_Item s8_exit1" data-item='{"type":"exit", "pos":"95,60", "goto":"scene1",  "text":"Jungle Crossroads", "next_image":"guybrush_still_right", "next_pos":"30,55"}'></div>
+                <div class="JAG_Item s8_exit2" data-item='{"type":"exit", "pos":"14,53", "goto":"scene9",  "text":"Enter Jail", "next_image":"guybrush_still_right", "next_pos":"20,70", "exit_style":"false,true"}'></div>
+                <div class="JAG_Item s8_exit3" data-item='{"type":"exit", "pos":"80,52", "goto":"scene10", "text":"Enter Stan&apos;s Previously Owned Coffins", "next_image":"guybrush_still_left", "exit_style":"false,true" }'></div>
+                <div class="JAG_Item s8_exit4" data-item='{"type":"exit", "pos":"0,60",  "goto":"scene12", "text":"Walk to Huge Tree", "next_image":"guybrush_still_left"}'></div>
+                <div class="JAG_Item s8_exit5" data-item='{"type":"exit", "pos":"50,56", "goto":"scene14", "text":"Enter Costume Shop", "next_image":"guybrush_still_right", "exit_style":"false,true"}'></div>                
+                <div class="JAG_Item s8_exit6" data-item='{"type":"exit", "pos":"19,60", "goto":"scene19", "text":"Docks", "next_image":"guybrush_still_right", "exit_style":"false,true", "hidden":true}'></div>                
+            </li>
+            
+            	<!-- ************************************************************************* -->
+	    		<!-- DOCKS
+   				<!-- ************************************************************************* -->                                           
+	    		<li id="scene19" data-scene='{
+					"background":"19", "foreground":"19_foreground", "horizon":"40,80", 
+	                "music":"docks", "music_volume":0.7, "music_vol_speed":250,
+                    "ambient":"ambient_waves", "ambient_volume":0.5, "ambient_vol_speed":500}'>
+                	<!-- MAIN CHARACTER -->
+    	    	    <div class="JAG_Char" data-character='{"entrance":[["walk_to:68,85,200"]], "repeat_entrance":true, "scale":"0.6,0.6", "pos":"20,85", "speed":5000}'></div>
+        	        <!-- EXITS -->
+    	            <div class="JAG_Item s19_exit1" data-item='{"type":"exit", "pos":"0,55", "goto":"scene8", "text":"Back to Town", "next_image":"guybrush_still_down", "next_pos":"50,85", "next_pan":0}'></div>
+    	            <div class="JAG_Item s19_exit2" data-item='{"type":"exit", "pos":"80,55", "goto":"scene20", "text":"Walk the Pier", "next_image":"guybrush_still_right"}'></div>
+	            </li>
+                
+            	<!-- ************************************************************************* -->
+	    		<!-- PIER
+   				<!-- ************************************************************************* -->                                           
+	    		<li id="scene20" data-scene='{
+					"background":"20", "foreground":"20_foreground", "horizon":"40,80", 
+	                "music":"docks", "music_volume":0.7, "music_vol_speed":250,
+                    "ambient":"ambient_waves", "ambient_volume":0.9, "ambient_vol_speed":500,
+                    "roll_credits":[
+						["Jaguar Engine Development: Crusader12"],
+                        ["Story &amp; Dialogue Writer: HeckSarah"],
+                        ["Background &amp; Sprites Art: LucasArts Monkey Island 2"],
+                        ["Art Director: Penny"],
+                    	["Lead Programmer: Crusader12"],
+						["Programmer&apos;s Assistant: Cat-Cat"],
+                        ["Marketing &amp; Promotion: Envato Market / CodeCanyon"],
+                        ["Dedicated Pirate Hunters (Copyright): DMCA Pro"],
+                        ["Compliance &amp; Functionality Testing: HeckSarah<br>Cudazi"],
+                        ["Jaguar is proudly exclusive to CodeCanyon:Thanks for playing!"]
+                    ]}'>
+                	<!-- MAIN CHARACTER -->
+    	    	    <div class="JAG_Char" data-character='{"scale":"0.6,0.6", "pos":"5,70", "speed":5000}'></div>
+        	        <!-- EXITS -->
+    	            <div class="JAG_Item s20_exit1" data-item='{"type":"exit", "pos":"0,60", "goto":"scene19", "text":"Back to Docks", "next_image":"guybrush_still_down", "next_pos":"80,85"}'></div>
+	            </li>                
+
+	            <!-- ************************************************************************* -->
+    			<!-- COSTUME SHOP
+   				<!-- ************************************************************************* -->                                           
+	    		<li id="scene14" data-scene='{
+					"background":"14", "foreground":"14_foreground", "horizon":"40,80", "pan":true,
+	                "music":"costume_shop", "music_volume":0.7, "music_vol_speed":250,
+                    "ambient":"ambient_waves", "ambient_volume":0.08, "ambient_vol_speed":500}'>
+					<!-- MAIN CHARACTER -->
+    	        	<div class="JAG_Char" data-character='{"scale":"0.3,0.6", "pos":"32,85", "speed":6000}'></div>
+	                <!-- PURPLE DRESS -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"74,42", "text":"purple dress", "proximity":100, "image":"dress", "scale":"1", 
+            	        "pick_up":[ ["say:Hopefully I won&apos;t need this."] ],
+                	    "look_at_text":"It&apos;s my color.",
+                    	"inv_look_at_text":"I have no idea why I&apos;m carrying<br>this around, but you insisted I pick it up."}'></div>                     
+	                <!-- COSTUME TABLE -->
+					<div class="JAG_Item" data-item='{
+						"type":"layer", "pos":"33.75,52.5", "text":"costume table", "proximity":500, "image":"table", "scale":"1", 
+            	        "pick_up":false, "pick_up_text":"There isn&apos;t anything<br>on this table that I need.",
+                	    "look_at_text":"Just a bunch of costumes.", "use_text":"I don&apos;t feel like dressing up."}'></div>                     
+	                <!-- EXITS -->
+    	            <div class="JAG_Item s14_exit1" data-item='{"type":"exit", "pos":"10,43", "goto":"scene8", "exit_style":"false,true", "text":"Exit Costume Shop", "next_image":"guybrush_still_down", "next_pos":"89,84", "next_pan":50}'></div>
+				</li>
+
+                       
+	            <!-- ************************************************************************* -->
+    			<!-- JAIL
+   				<!-- ************************************************************************* -->                                           
+	    		<li id="scene9" data-scene='{
+					"background":"9", "foreground":"9_foreground", "horizon":"-20,100", 
+	                "music":"jail", "music_volume":0.7, "music_vol_speed":250,
+                    "ambient":"ambient_waves", "ambient_volume":0.1, "ambient_vol_speed":500}'>
+					<!-- MAIN CHARACTER -->
+    	        	<div class="JAG_Char" data-character='{"scale":"0.5,0.75", "pos":"60,94", "speed":7000}'></div>
+	                <!-- HAMMER -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"35,60", "text":"hammer","proximity":100, "image":"hammer", "scale":"0.4", 
+	                    "pick_up":[ ["say:Strange place to find this."] ],
+    	                "look_at_text":"It&apos;s a hammer.",
+        	            "inv_look_at_text":"Sturdy."}'></div>                 
+	                <!-- WALL -->
+    	            <div class="JAG_Item" data-item='{
+						"type":"object", "pos":"60.6,29.35", "text":"damaged wall",
+                    	"proximity":150, "image":"wall", "scale":"1", 
+	                    "look_at_text":"The jail wall appears to be damaged over here."}'></div>
+    	            <!-- HOLE IN JAIL WALL [ EXIT ] -->
+        	        <div class="JAG_Item s9_exit2" data-item='{
+                	"image":"hole_wall","type":"exit", "pos":"60.6,29.35", "hidden":true,
+                    "goto":"scene13", "text":"Beneath the Jail", "image":"hole_wall",
+                    "next_image":"guybrush_still_down", "exit_style":"false,true","next_pos":"35,40"}'></div>   
+	                <!-- EXITS -->
+    	            <div class="JAG_Item s9_exit1" data-item='{"type":"exit", "pos":"0,40", "goto":"scene8", "text":"Back to Town", "next_image":"guybrush_still_right", "next_pos":"30,75", "next_pan":0}'></div>
+				</li>
+                
+            
+		            <!-- ************************************************************************* -->
+    				<!-- BENEATH THE JAIL
+		   			<!-- ************************************************************************* -->                                           
+	    			<li id="scene13" data-scene='{
+            			"background":"13","horizon":"0,100", 
+		                "music":"bones", 
+                        "stars":true, "star_color":["#4b84a7","#a7bbd3","#3f779f","#ff6bff"], "star_speed":0.25, "star_size":"2,18"}'>
+        		        <!-- MAIN CHARACTER -->
+    	        		<div class="JAG_Char" data-character='{"scale":"0.5,0.5","speed":7000}'></div>
+						<!-- SKULL -->
+						<div class="JAG_Item" data-item='{
+							"type":"object","pos":"35,50", "text":"skull", "image":"skull", "proximity":"150", "scale":"0.5",
+                            "look_at_text":"He lost.",                            
+							"pick_up":[["say:It appears to be human."]],
+                            "inv_talk_to_text":"He&apos;s pretty dead.",
+        		            "inv_look_at_text":"You never know when you&apos;ll need another one."}'></div>                  
+                		<!-- EXIT -->
+		                <div class="JAG_Item s13_exit1" data-item='{"type":"exit", "pos":"25,0", "goto":"scene9", "text":"Jail Cell", "next_image":"guybrush_still_left", "next_pos":"45,75", "exit_style":"false,true"}'></div>
+					</li>                 
+            
+            
+            
+	            <!-- ************************************************************************* -->
+    			<!-- COFFIN SHOP WITH DIRTY PIRATE
+   				<!-- ************************************************************************* -->                                         
+		    	<li id="scene10" data-scene='{
+					"background":"10", "foreground":"10_foreground", "horizon":"20,80",
+	                "music":"shop", "music_volume":0.7, "music_vol_speed":250,
+                    "ambient":"ambient_waves", "ambient_volume":0.1, "ambient_vol_speed":500}'>
+	                <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{
+                		"scale":"0.5,0.65", "pos":"88,78", "speed":7000, "direction":"left",
+	                    "entrance":[
+                        	["walk_to:81,79,500"],
+                        	["say_after:There&apos;s a dirty pirate<br> behind the counter."]],
+    	                "repeat_entrance":false}'></div>
+					<!-- DIRTY PIRATE -->
+					<div class="JAG_Aux_Char dirty_pirate" data-character='{
+	                    "image":"pirate_down","talk_image":"pirate_talking",
+    	                "pos":"33,68","proximity":200,"scale":"0.6,0.6","text":"dirty pirate",
+        	            "look_at_text":"He&apos;s dirty and won&apos;t <br/> stop doing that belly thing.",
+            	        "pick_up_text":"I don&apos;t think I can.", "highlight_verb":"talk_to",
+                        "push_text":"I don&apos;t want to start anything.",
+                        "pull_text":"You really think I can muscle this guy?",
+                	    "talk_to_text":[
+	                	    [
+    	                		["You&apos;re not Stan. || Nope. I isn&apos;t."],
+                            	["So... what are you doing here? || Err, I&apos;m just watching <br> the shop for him. What can I do for ya?"],
+	                        	["Who lives in that house overlooking the ocean? || Me! I was in such a rush to help Stan ... <br/> I forgot my lunch."],
+    	                        ["And you&apos;ll give me something awesome if I bring it for you? || I have the only key and ain&apos;t about to give<br/> it to you! But I even made my favorite today - fish!"]
+        	                ],
+            	            [
+                	        	["What have you heard about this... crusader12? || Stellar support and great products. <br/> What else d&apos;ya want?"],
+                    	        ["How is the documentation? || It has pictures... - of course it&apos;s awesome!"],
+                        		["Where is that music coming from? || Hey... you can hear it to? <br/>It&apos;s like a crazy MP3 on loop somewhere..."],
+	                        	["I saw something about a built-in debugger? || Oh yeah! Hit F2 to open it at any time!"],
+    	                        ["Woah! So I can see everything I&apos;m doing and easily <br/> track any issues I run into! || It makes life easy. Now... are you gonna buy somethin?"]
+        	                ],
+            	            [
+                	        	["So, I&apos;m thinking about buying Jaguar... || This demo sure is convincing!"],
+                    	        ["...but I can barely write a web page let alone a game... || Ha! Kid, this is easy. All you have <br/> to worry about are the graphics."]
+                        	],
+	                        [
+    	                    	["Tell me about the Experience Points System. || After the main Character <em>(you)</em> perform <br> an Action, you can optionally award Experience Points."],
+        	                    ["Like when I pick something up? || Exactly! Then, you can set Achievements."],
+            	                ["What are Achievements for? || They won&apos;t allow an Action to occur until an<br/> Achievement has been met...<br/> like 100 Experience Points!"],
+								["Sounds pretty easy! || Jaguar is built for everyone to have fun. <br> Don&apos;t forget to share your games!"]                            
+                    	    ],
+                            [
+                            	["I noticed Talk To was highlighted when I hovered you. || Aye! A new feature that is. You can assign specific<br>Verbs to highlight per Item - as a cue to the player."]
+                            ]
+	                    ],
+    	                "done_talking":[["say:That&apos;s enough of him for now."]]}'></div>
+    	            <!-- TICKET -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"35,60", "text":"ticket", "proximity":50, 
+                        "image":"ticket", "scale":"0.4","hidden":true,"inv_look_at_text":"Some kind of boarding pass.<br>Maybe I can use it at the docks."}'></div>
+					<!-- MATCHES -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"35,80", "text":"matches","image":"match", "scale":"0.4", 
+            	        "hidden":true, "pick_up":true,"inv_look_at_text":"These were free!",
+                	    "inv_use":[
+                    		["with:dynamite"],
+	                        ["say:Time to blow something up!"],
+    	                    ["change_sprite:dynamitelit"],
+        	                ["play_sound:lit"],
+            	            ["inv_remove:matches"]]}'></div>                
+	                <!-- BOTTLE -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"60,63", "text":"glass bottle","proximity":100, "image":"bottle", "scale":"0.4", 
+                        "look_at_text":"Perhaps he wouldn&apos;t notice<br>if this was missing.",
+            	        "pick_up":[["say:A bottle!"]],"inv_look_at_text":"It needs a ship in it."}'></div>                                                   
+	                <!-- LAYER ITEM (COUNTER) -->
+					<div class="JAG_Item s10_counter" data-item='{"image":"counter","type":"layer", "pos":"13.5,32.5", "text":false}'></div>                  
+	                <!-- EXIT -->
+    	            <div class="JAG_Item s10_exit1" data-item='{"type":"exit", "pos":"95,40", "goto":"scene8", "text":"Exit", "next_image":"guybrush_still_down", "next_pos":"148,95", "next_pan":100}'></div>
+				</li>  
+            
+			
+            
+            	<!-- ************************************************************************* -->
+    			<!-- OUTSIDE TOWN WITH STAN
+   				<!-- ************************************************************************* -->                                           
+		    	<li id="scene12" data-scene='{
+	                "background":"12", "horizon":"0,100",
+	                "music":"town"}'>
+	                <!-- MAIN CHARACTER -->
+    		        <div class="JAG_Char" data-character='{"scale":"0.7,0.7", "pos":"95,95", "speed":7000, "direction":"left"}'></div>
+					<!-- STAN -->
+    				<div class="JAG_Aux_Char" data-character='{
+                		"image":"stan_still_right", "talk_image":"stan_talking_right", "text":"Stan", 
+                        "look_at_text":"You would think that after all these<br>years he would change his outfit.",
+                        "pick_up_text":"It isn&apos;t that kind of game. || Besides, this is just the demo.",       
+                        "push_text":"Why would you want to do that? || You and Stan go way back.",
+	                    "proximity":350,"scale":"0.75,0.75", "pos":"45,95","speed":7000, "text_color":"#ff8400",
+                        "play_conversation":true,
+						"talk_to_text":[
+	    	                [
+            	            	["Stan, what are you doing out here? || I&apos;m telling people how cool Jaguar is!"],
+                	            ["So, can you seriously build adventure games with this? || Absolutely, with almost all the features of the classics!"],
+                    	        ["Ooooooh that sounds like a lot of fun! || Yep, and there are some cool addons in the works!"]
+                        	],
+	                        [
+    	                    	["Is Jaguar only for older games? || Absolutely not! Use any graphics you like, <br/> you aren&apos;t restricted to any one style."]
+        	                ],
+            	            [
+                	            ["Tell me about Inventory Items. || Well, you obtain Items then use them with other<br/> Inventory Items, Scene Items or Characters."],
+                    	        ["So that&apos;s how I progress through a game! || There are lots of ways - that&apos;s just one of them."],
+                        	    ["What other ways are there? || Experience Points, Achievements, Actions...<br/>Play the demo and find out!"]                            
+	                        ],
+    	                    [
+        	                	["This conversation system is interesting. || It&apos;s great for websites - and is <br>available as a standalone plugin called Macaw!"],
+                                ["Sounds handy! Is it difficult? || Not at all - typing Questions and Answers will build<br/> a Character Conversation for you."],
+            	                ["What about other text? || Jaguar allows you to assign text to nearly <br/>any action that can be perfomed."],
+                	            ["I noticed your text is a different color. || Of course it is, I&apos;m Stan."]
+                    	    ]
+	                    ],
+    	                "done_talking":[
+        	            	["say:He said I should run <br/>out and get my copy today!"],
+            	            ["walk_to:65,96,500"]
+                	    ],
+				 		"entrance":[
+                        	["walk_to:80,95,200"],
+                        	["say_after:It&apos;s Stan!<br>But why is he way out here?"]],"repeat_entrance":false}'></div>                
+
+
+					<!-- MONKEY HEAD -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"59.5,66", "text":"monkey head souvenir", "proximity":100, "image":"monkey_head", "scale":"0.4", 
+	                    "pick_up":true,
+    	                "look_at_text":"It reminds me of something...",
+        	            "inv_look_at_text":"How nostalgic.",
+						"give":[
+                	    	["to:stan"],
+							["inv_add:estate key"]],
+	                    "give_text":[
+    	                	[["You may have left this monkey head souvenir at your estate for sale. || Thanks, I&apos;ve been looking for this!<br>You interested in the place?<br>Here&apos;s the key, take a peek."],
+							 ["Ummm... ok. || Don&apos;t worry about bringing it back,<br>I had plenty of copies made."]]]}'></div>
+                             
+
+	                <!-- STICK -->
+					<div class="JAG_Item" data-item='{
+						"type":"object", "pos":"60,88", "text":"stick","proximity":100, "image":"stick", "scale":"0.4", 
+                        "look_at_text":"A stick.",
+            	        "pick_up":[["say:I got the stick. How many points<br>do you think that was worth?"]],"inv_look_at_text":"You guessed it.<br>Wood."}'></div>                                                   
+					<!-- ESTATE KEY -->
+					<div class="JAG_Item" data-item='{
+                    	"type":"object", "pos":"0,0", "image":"estate_key", "text":"estate key", "scale":"1", "hidden":true,
+                        "inv_look_at_text":"It unlocks Stan&apos;s estate.",
+						"inv_use":[
+    	                	["with:estate door"],
+							["show:Enter Estate"],
+            	            ["hide:estate door"],
+                	        ["inv_remove:estate key"],
+                    	    ["play_sound:door_lock"]]}'></div>                     
+	                <!-- EXIT -->
+    	            <div class="JAG_Item s12_exit1" data-item='{"type":"exit", "pos":"95,80", "goto":"scene8", "text":"to Town", "next_image":"guybrush_still_right", "next_pos":"10,95", "next_pan":0, "exit_style":"false,true"}'></div>
+				</li>
+	    </ul><!-- END CHAPTER -->
+	</div><!-- END GAME -->
+</div><!-- END GAME WRAPPER -->          
+</body></html>

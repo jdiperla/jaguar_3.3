@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META INFORMATION -->
+    <title>Jaguar v2.7 Base Template</title>    
+    <meta charset="utf-8"/>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Jaguar LucasArts Adventure Game Engine">
+    <meta name="keywords" content="LucasArts, Monkey Island, Game Engine, Game Builder, Game Maker, Game Generator, Adventure, Point and Click">
+    <meta name="author" content="Crusader12">
+    <meta name="copyright" content="Crusader12">   
+	
+	<!-- SETUP MOBILE VIEWPORT & DISABLE TAP HIGHLIGHT COLOR ON WINDOWS MOBILE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    
+    <!-- JAGUAR CSS -->
+    <link rel="stylesheet"  href="Jaguar/css/jquery-Jaguar-2.7.css" type="text/css" media="all" />
+
+	<!-- DEMO GAME CSS -->
+    <link rel="stylesheet" type="text/css" href="Jaguar/css/game.css"/>    
+
+	<!-- LOAD JQUERY -->
+	<script src="Jaguar/js/jquery-2.1.3.min.js"></script>
+
+	<!-- LOAD JAGUAR MODULES -->
+	<script src="Jaguar/js/jquery-jaguar-2.7.js"></script>
+	<script src="Jaguar/js/debug.js"></script>
+	<script src="Jaguar/js/physics.js"></script>
+	<script src="Jaguar/js/scene.js"></script>
+	<script src="Jaguar/js/environment.js"></script>    
+	<script src="Jaguar/js/characters.js"></script>
+	<script src="Jaguar/js/items.js"></script>
+	<script src="Jaguar/js/actions.js"></script>
+	<script src="Jaguar/js/secondary_actions.js"></script>
+	<script src="Jaguar/js/dialogue.js"></script>
+	<script src="Jaguar/js/parser.js"></script>
+	<script src="Jaguar/js/cutscenes.js"></script>
+	<script src="Jaguar/js/save_load.js"></script>
+	<script src="Jaguar/js/audio.js"></script>
+    
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		$('#myAdventure').Jaguar({
+			"skin":"monkey_island",
+			"title":"Jaguar Monkey Island Demo"
+		}); 
+	});
+</script>
+</head>
+<body>
+
+<!-- WRAPPER IS USED TO POSITION AND STYLE GAME-->
+<div id="wrapper">
+
+	<!-- ACTUAL GAME -->
+	<div id="myAdventure">
+    
+		<!-- ************************************************************************* -->
+		<!-- INITIAL TEASER TEXT -->
+		<!-- ************************************************************************* -->
+        <div id="JAG_Teaser">
+            <img src="Jaguar/chars/guybrush_open_right.gif">
+	    	<h1>Turn up yer speakers and <br/> click to begin your Adventure!</h1>
+		</div>     
+
+		<!-- CHAPTER -->
+        <!-- ALL CHARACTER ATTRIBUTES HERE WILL APPLY TO ALL DATA-CHARACTER ATTRIBUTES IN THE CHAPTER 
+        	 THIS WOULD BE A GOOD PLACE TO SET REPETITIVE SETTINGS, SUCH AS CHARACTER SPRITES -->
+    	<ul data-chapter='{
+			"image":"guybrush_still_right",
+			"talk_image":"guybrush_talking_right",                     
+            "pick_up_up":"guybrush_pick_up_up",                 
+            "give_image":"guybrush_open_left",
+			"open_image":"guybrush_open_left",  				            
+            "right":"guybrush_right,guybrush_still_right", 	
+            "left":"guybrush_left,guybrush_still_left",
+            "down":"guybrush_down,guybrush_still_down",    	
+            "up":"guybrush_up,guybrush_still_up",
+            "talk_right":"guybrush_talking_right", 			
+            "talk_left":"guybrush_talking_left", 
+            "talk_down":"guybrush_talking_right",        	
+            "talk_up":"guybrush_talking_left",
+            "pick_up":"guybrush_pick_up_down",          	
+            "pick_up_left":"guybrush_pick_up_left",
+            "pick_up_down":"guybrush_pick_up_down",     	
+            "pick_up_right":"guybrush_pick_up_right",
+            "give_left":"guybrush_open_left", 				
+            "give_right":"guybrush_open_right",
+            "open_left":"guybrush_open_left",  		        
+            "open_right":"guybrush_open_right",            
+            "text_color":"#00fcff"        
+        }'>
+
+            <!-- ************************************************************************* -->
+    		<!-- SCENE 1 -->
+            <!-- ************************************************************************* -->
+            <!-- THE SCENE IS GIVEN A UNIQUE ID/NAME WHICH IS USED TO REFERENCE THIS SCENE IN EXIT ITEMS -->
+	    	<li id="scene1" data-scene='{
+            	"background":"1",
+            	"foreground":"1_foreground", 
+                "horizon":"40,120",
+                "subtitle":"jungle crossroads",
+                "subtitle_speed":"3500,2000",
+                "subtitle_color":"#57f2e0",
+                "subtitle_pos":"middle",
+                "music":"intro2"               
+            }'>
+            
+            	<!-- MAIN CHARACTER CHARACTER -->
+                <!-- ALL CHARACTER DATA FOR THIS CHAPTER HAS BEEN ASSIGNED IN THE DATA-CHAPTER ATTRIBUTE.
+                     HOWEVER, ANY SETTINGS PLACED IN THE DATA-CHARACTER ATTRIBUTE WILL OVERWRITE THOSE FOR THIS SCENE ONLY. 
+                `	 HERE WE JUST DEFINE WHERE THE CHARACTER IS POSITIONED AND THE MIN/MAX SCALING     
+				-->
+    	        <div class="JAG_Char" data-character='{
+                	"scale":"0.45,0.85", 
+                    "pos":"10,45",
+                    "speed":6000
+				}'></div>
+                
+                <!-- SCENE ITEM (ENVELOPE) -->
+                <div class="JAG_Item" data-item='{
+					"type":"object", 
+                    "pos":"45,63", 
+                    "text":"envelope",
+        	        "image":"envelope", 
+                    "scale":"0.5", 
+                    "pick_up":true,
+                    "look_at_text":"I should probably read it...<br/>like the manual.",
+                    "inv_look_at_text":"I got it from the crossroads...",
+                    "open_text":"I need to pick up the envelope before I can open it.",
+                    "proximity":50,
+                    "inv_open":[
+                    	["say:Hmmm... it says I should immediately go rate <br/>all of my Envato purchases... not sure what that means."],
+                        ["play_sound:pageflip"],
+                        ["inv_remove:envelope"]                        
+                    ]
+				}'></div>	                        
+
+				<!-- SCENE EXITS -->
+                <!-- A SPECIAL CLASS (S1_EXIT1) IS ADDED TO SET DIMENSIONS FOR THIS EXIT) -->
+                <div class="JAG_Item s1_exit1" data-item='{
+                	"type":"exit", 
+                    "pos":"0,80", 
+                    "goto":"scene2", 
+                    "text":"Walk to Clearing"
+				}'></div>                
+			</li>
+            
+
+
+            <!-- ************************************************************************* -->
+    		<!-- SCENE 2 --> 
+            <!-- ************************************************************************* -->
+            <!-- THE NEXT SCENE HAS A UNIQUE NAME/ID (USED IN EXITS) -->           
+    		<li id="scene2" data-scene='{
+                "background":"2",            
+            	"foreground":"2_foreground", 
+                "horizon":"-10,120",
+                "music":"intro2"
+			}'>
+    	    	
+            	<!-- MAIN CHARACTER CHARACTER -->
+                <!-- ALL CHARACTER DATA FOR THIS CHAPTER HAS BEEN ASSIGNED IN THE DATA-CHAPTER ATTRIBUTE.
+                     THE CHARACTER'S TEXT WILL BE #00fCff FOR THIS SCENE ONLY (OVERWRITING THE TEXT_COLOR APPLIED IN THE DATA-CHAPTER ATTRIBUTE) -->
+    	        <div class="JAG_Char" data-character='{
+                	"text_color":"#00fcff",
+					"scale":"0.45,0.85", 
+                    "pos":"80,45", 
+                    "speed":8000                    
+				}'></div>
+                
+                <!-- SCENE ITEM(S) -->
+                <!-- THIS EXIT USES THE NEXT_IMAGE AND NEXT_POS TO CHANGE THE ENTRANCE IMAGE/POS OF THE MAIN CHARACTER WHEN 
+                     RETURNING TO SCENE 1 -->
+               	<div class="JAG_Item s2_exit1" data-item='{
+                	"type":"exit", 
+                    "pos":"80,0", 
+                    "goto":"scene1", 
+                    "text":"Back to the Crossroads", 
+                    "next_image":"guybrush_still_right", 
+                    "next_pos":"12,90"
+				}'></div>
+	        </li>
+	    </ul>
+	</div>
+</div>
+
+
+</body></html>

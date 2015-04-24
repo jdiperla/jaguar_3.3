@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META INFORMATION -->
+    <title>Jaguar v2.7 Auxiliary Character Demo</title>    
+    <meta charset="utf-8"/>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Jaguar LucasArts Adventure Game Engine">
+    <meta name="keywords" content="LucasArts, Monkey Island, Game Engine, Game Builder, Game Maker, Game Generator, Adventure, Point and Click">
+    <meta name="author" content="Crusader12">
+    <meta name="copyright" content="Crusader12">   
+	
+	<!-- SETUP MOBILE VIEWPORT & DISABLE TAP HIGHLIGHT COLOR ON WINDOWS MOBILE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    
+    <!-- JAGUAR CSS -->
+    <link rel="stylesheet"  href="Jaguar/css/jquery-Jaguar-2.7.css" type="text/css" media="all" />
+
+	<!-- DEMO GAME CSS -->
+    <link rel="stylesheet" type="text/css" href="Jaguar/css/game.css"/>    
+
+	<!-- LOAD JQUERY -->
+	<script src="Jaguar/js/jquery-2.1.3.min.js"></script>
+
+	<!-- LOAD JAGUAR MODULES -->
+	<script src="Jaguar/js/jquery-jaguar-2.7.js"></script>
+	<script src="Jaguar/js/debug.js"></script>
+	<script src="Jaguar/js/physics.js"></script>
+	<script src="Jaguar/js/scene.js"></script>
+	<script src="Jaguar/js/environment.js"></script>    
+	<script src="Jaguar/js/characters.js"></script>
+	<script src="Jaguar/js/items.js"></script>
+	<script src="Jaguar/js/actions.js"></script>
+	<script src="Jaguar/js/secondary_actions.js"></script>
+	<script src="Jaguar/js/dialogue.js"></script>
+	<script src="Jaguar/js/parser.js"></script>
+	<script src="Jaguar/js/cutscenes.js"></script>
+	<script src="Jaguar/js/save_load.js"></script>
+	<script src="Jaguar/js/audio.js"></script>
+    
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		$('#myAdventure').Jaguar({
+			"skin":"monkey_island",
+			"title":"Jaguar Monkey Island Demo"
+		}); 
+	});
+</script>
+</head>
+
+
+
+<body>
+
+<!-- WRAPPER IS USED TO POSITION AND STYLE GAME-->
+<div id="wrapper">
+
+	<!-- ACTUAL GAME -->
+	<div id="myAdventure">
+    
+		<!-- ************************************************************************* -->
+		<!-- INITIAL TEASER TEXT -->
+		<!-- ************************************************************************* -->
+        <div id="JAG_Teaser">
+            <img src="Jaguar/chars/guybrush_open_right.gif">
+	    	<h1>Turn up yer speakers and <br/> click to begin your Adventure!</h1>
+		</div>     
+
+		<!-- CHAPTER -->
+        <!-- ALL CHARACTER ATTRIBUTES HERE WILL APPLY TO ALL DATA-CHARACTER ATTRIBUTES IN THE CHAPTER -->
+    	<ul data-chapter='{
+			"image":"guybrush_still_right",
+			"talk_image":"guybrush_talking_right",                     
+            "pick_up_up":"guybrush_pick_up_up",                 
+            "give_image":"guybrush_open_left",
+			"open_image":"guybrush_open_left",  				            
+            "right":"guybrush_right,guybrush_still_right", 	
+            "left":"guybrush_left,guybrush_still_left",
+            "down":"guybrush_down,guybrush_still_down",    	
+            "up":"guybrush_up,guybrush_still_up",
+            "talk_right":"guybrush_talking_right", 			
+            "talk_left":"guybrush_talking_left", 
+            "talk_down":"guybrush_talking_right",        	
+            "talk_up":"guybrush_talking_left",
+            "pick_up":"guybrush_pick_up_down",          	
+            "pick_up_left":"guybrush_pick_up_left",
+            "pick_up_down":"guybrush_pick_up_down",     	
+            "pick_up_right":"guybrush_pick_up_right",
+            "give_left":"guybrush_open_left", 				
+            "give_right":"guybrush_open_right",
+            "open_left":"guybrush_open_left",  		        
+            "open_right":"guybrush_open_right",            
+            "text_color":"#00fcff"        
+        }'>
+
+            <!-- ************************************************************************* -->
+    		<!-- SCENE 1 -->
+            <!-- ************************************************************************* -->
+            <!-- THE SCENE IS GIVEN A UNIQUE ID/NAME WHICH IS USED TO REFERENCE THIS SCENE IN EXIT ITEMS -->
+    		<li id="scene1" data-scene='{
+                "background":"2",            
+            	"foreground":"2_foreground", 
+                "horizon":"-10,120",
+                "music":"intro2"
+			}'>
+    	    	
+            	<!-- MAIN CHARACTER CHARACTER -->
+                <!-- ALL CHARACTER DATA FOR THIS CHAPTER HAS BEEN ASSIGNED IN THE DATA-CHAPTER ATTRIBUTE.
+                     THE CHARACTER'S TEXT WILL BE #00fCff FOR THIS SCENE ONLY (OVERWRITING THE TEXT_COLOR APPLIED IN THE DATA-CHAPTER ATTRIBUTE) -->
+    	        <div class="JAG_Char" data-character='{
+                	"text_color":"#00fcff",
+					"scale":"0.45,0.85", 
+                    "pos":"85,50", 
+                    "speed":8000,
+                    "direction":"left",
+				 	"entrance":[
+                    	["walk_to:55,90,200"],
+                    	["say:There he is!"]
+                    ],
+                    "repeat_entrance":false
+				}'></div>
+                
+                
+				<!-- AUXILLIARY CHARACTER -->
+                <!-- EVERYTHING WITH THE AUXILLIARY CHARACTER IS DEFINED WITHIN THE DATA-CHARACTER ATTRIBUTE OF THE AUX CHARACTER DIV.
+                     ALL OTHER CODE ON THIS PAGE IS THE SAME AS THE BASE TEMPLATE FILE.
+                     PAY CLOSE ATTENTION TO THE APOSTROPHES AND COMMAS WHEN BUILDING CONVERSATIONS. -->
+    	        <div class="JAG_Aux_Char" data-character='{
+                	"image":"stan_still_right", 
+                    "talk_image":"stan_talking_right", 
+                    "text":"Stan", 
+                    "proximity":400,
+                	"scale":"0.75,0.75", 
+                    "pos":"35,90", 
+                    "speed":7000, 
+                    "text_color":"#ff8400",
+					"talk_to_text":[
+	                    [
+                        	["Stan, what are you doing here? || I&apos;m telling people how cool JaguarStudio is!"],
+                            ["Nice! Will there be a WordPress version? || Nope, but there will be addons."],
+                            ["Ooooooh that sounds neat. What kind? || They&apos;re top secret right now."] 
+                        ],
+                        [
+                        	["Is JaguarStudio only for older games? || Absolutely not! Use any graphics you like, <br/> you aren&apos;t restricted to any one style."]
+                        ],
+                        [
+                        	["I like the panning Scenes feature. || Yeah, Jaguar handles that for you automatically."],
+                            ["Tell me about Inventory Items. || Well, you obtain Items then use them with other<br/> Inventory Items, Scene Items or Characters."],
+                            ["So that&apos;s how I progress through a game! || There are lots of ways - that&apos;s just one of them."]
+                        ],
+                        [
+                        	["This conversation system is interesting. || Yep - typing Questions and Answers will build<br/> a Character Conversation for you."],
+                            ["What about other text? || JaguarStudio allows you to assign text to nearly <br/>any action that can be perfomed."],
+                            ["I noticed your text is a different color. || Of course, I&apos;m Stan."]
+                        ]
+                    ],
+                    "done_talking":[
+                    	["say:He said I should run out and get my copy today!"],
+                        ["walk_to:55,95,200"]
+                    ]
+				}'></div>         
+                                                    
+                
+                <!-- SCENE ITEM(S) -->
+                <!-- THIS EXIT USES THE NEXT_IMAGE AND NEXT_POS TO CHANGE THE ENTRANCE IMAGE/POS OF THE MAIN CHARACTER WHEN 
+                     RETURNING TO SCENE 1 -->
+               	<div class="JAG_Item s2_exit1" data-item='{
+                	"type":"exit", 
+                    "pos":"80,0", 
+                    "goto":"scene1", 
+                    "text":"Back to the Crossroads", 
+                    "next_image":"guybrush_still_right", 
+                    "next_pos":"12,90"
+				}'></div>
+	        </li>
+	    </ul>
+	</div>
+</div>
+
+
+</body></html>
